@@ -55,6 +55,10 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[Groups(['user:write'])]
     private ?string $password = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups(['user:read', 'user:write'])]
+    private ?MediaObject $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,5 +125,17 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     public function getUserIdentifier(): string
     {
         return $this->email;
+    }
+
+    public function getImage(): ?MediaObject
+    {
+        return $this->image;
+    }
+
+    public function setImage(?MediaObject $image): static
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

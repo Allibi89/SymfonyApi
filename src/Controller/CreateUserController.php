@@ -21,7 +21,7 @@ final class CreateUserController extends AbstractController
        UserManager $userManager
    ): Response {
        $data = $serializer->deserialize($request->getContent(), User::class, 'json');
-       $user = $userFactory->create($data->getEmail(), $data->getPassword(), $data->getGivenName(), $data->getFamilyName());
+       $user = $userFactory->create($data->getEmail(), $data->getPassword(), $data->getGivenName(), $data->getFamilyName(), $data->getImage());
        $userManager->save($user, true);
 
        return $this->json($user);
